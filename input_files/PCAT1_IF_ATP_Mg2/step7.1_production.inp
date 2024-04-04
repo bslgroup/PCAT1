@@ -2,11 +2,11 @@ structure               step5_input.psf
 coordinates             step5_input.pdb
 
 set temp                310;
-outputName              step7.2_production; # base name for output from this run
+outputName              step7.1_production; # base name for output from this run
                                             # NAMD writes two files at the end, final coord and vel
                                             # in the format of first-dyn.coor and first-dyn.vel
 
-set inputname           step7.1_production;
+set inputname           step6.6_equilibration;
 binCoordinates          $inputname.coor;    # coordinates from last run (binary)
 binVelocities           $inputname.vel;     # velocities from last run (binary)
 extendedSystem          $inputname.xsc;     # cell dimensions from last run (binary)
@@ -22,7 +22,6 @@ outputEnergies          5000;               # 5000 steps = every 10ps
 outputTiming            5000;               # The number of timesteps between each timing output shows
                                             # time per step and time to completion
 restartfreq             5000;               # 5000 steps = every 10ps
-firsttimestep		5000000;	    # start at 10 ns
 
 # Force-Field Parameters
 paraTypeCharmm          on;                 # We're using charmm type parameter file(s)
@@ -145,5 +144,6 @@ langevinDamping         1.0;                # damping coefficient of 1/ps (keep 
 langevinTemp            $temp;              # random noise at this level
 langevinHydrogen        off;                # don't couple bath to hydrogens
 # run
-run                     5000000;            # 20ns total
+numsteps                5000000;            # run stops when this step is reached
+run                     5000000;            # 10ns
 
